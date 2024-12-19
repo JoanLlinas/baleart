@@ -30,19 +30,29 @@ class SpaceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    /*public function show(Space $space)
     {   
-        $space = Space::with(['user', 'modalities', 'comments', 'comments.images'])->find($id);
+        $space->load(['user', 'modalities', 'comments', 'comments.images']);
         
         return new SpaceResource($space);
-    }
+    }*/
 
-    public function show($id)
-    {   
-        $space = Space::with(['user', 'modalities', 'comments', 'comments.images'])->find($id);
-        
+    public function show($value)
+    {
+        $space = is_numeric($value)
+        ? Space::with(['user', 'modalities', 'comments', 'comments.images'])->findOrFail($value) // Busca por ID
+        : Space::with(['user', 'modalities', 'comments', 'comments.images'])->where('regNumber', $value)->firstOrFail(); // Busca por regNumber
+
         return new SpaceResource($space);
     }
+    
+    /*
+    public function show($regNumber)
+    {   
+        $space = Space::with(['user', 'modalities', 'comments', 'comments.images'])->find($regNumber);
+        
+        return new SpaceResource($space);
+    }*/
     /**
      * Update the specified resource in storage.
      */

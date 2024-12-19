@@ -18,6 +18,8 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+//Route::get('space/search/{value}', [SpaceController::class, 'search']);
+
 
 Route::apiresource('island', IslandController::class)->except('create', 'edit');
 Route::apiresource('municipality', MunicipalityController::class)->except('create', 'edit');
@@ -28,5 +30,5 @@ Route::apiresource('modality', ModalityController::class)->except('create', 'edi
 Route::apiresource('service', ServiceController::class)->except('create', 'edit');
 Route::apiresource('role', RoleController::class)->except('create', 'edit');
 Route::apiresource('comment', CommentController::class)->except('create', 'edit');
-Route::apiresource('space', SpaceController::class)->except('create', 'edit');
+Route::apiResource('space', SpaceController::class)->except('create', 'edit');
 Route::apiresource('image', ImageController::class)->except('create', 'edit');
