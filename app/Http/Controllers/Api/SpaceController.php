@@ -13,9 +13,16 @@ class SpaceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $spaces = Space::with(["user", "modalities", "comments", "comments.images"])->paginate(1);
+        $query = Space::query();
+        if ($request->has('illa')){
+            $query->whereHas('address.municipality.island', function($query) use ($request){
+                $query->where('name', 'like', '%' . $request->illa . '%');
+            });
+        }
+        $spaces = $query->get();
+        
         return (SpaceResource::collection($spaces));
     }
 
@@ -46,13 +53,6 @@ class SpaceController extends Controller
         return new SpaceResource($space);
     }
     
-    /*
-    public function show($regNumber)
-    {   
-        $space = Space::with(['user', 'modalities', 'comments', 'comments.images'])->find($regNumber);
-        
-        return new SpaceResource($space);
-    }*/
     /**
      * Update the specified resource in storage.
      */
