@@ -34,6 +34,27 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
+
+    protected $fillable = [
+        'name',
+        'regNumber',
+        'observation_CA',
+        'observation_ES',
+        'observation_EN',
+        'email',
+        'phone',
+        'website',
+        'accessType',
+        'totalScore',
+        'countScore',
+        'address_id',
+        'space_type_id',
+        'user_id',
+    ];
+
+    protected $guarded = [
+        'id'
+    ];
     public function down(): void
     {
         Schema::dropIfExists('spaces');

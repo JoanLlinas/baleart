@@ -19,6 +19,6 @@ class Address extends Model
     }
 
     public function spaces(){
-        return $this->hasMany(Space::class);
+        return $this->hasOne(Space::class);
     }
 }
